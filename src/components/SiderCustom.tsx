@@ -86,6 +86,7 @@ class SiderCustom extends Component<SiderCustomProps, SiderCustomState> {
     render() {
         const { selectedKey, openKeys, firstHide, collapsed } = this.state;
         const { smenus } = this.props;
+        console.log('是什么啊', smenus);
         return (
             <Sider
                 trigger={null}

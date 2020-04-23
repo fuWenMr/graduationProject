@@ -26,3 +26,22 @@ export const queryString = () => {
  */
 export const checkLogin = (permits: any): boolean =>
     (process.env.NODE_ENV === 'production' && !!permits) || process.env.NODE_ENV === 'development';
+
+/**
+ * 把formData转换为JSON
+ */
+export function formData2JSON(formData: FormData, extraData = {}) {
+    let obj = {} as any;
+    formData.forEach((value, key) => {
+        obj[key] = value;
+    });
+    return JSON.stringify(Object.assign(obj, extraData));
+}
+
+/**
+ * 从 form中取出JSON
+ */
+export function getJSONByForm(from: any, extraData?: any) {
+    const formData = new FormData(from);
+    return formData2JSON(formData, extraData);
+}

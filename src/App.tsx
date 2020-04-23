@@ -10,6 +10,8 @@ import { checkLogin } from './utils';
 import { fetchMenu } from './axios';
 import umbrella from 'umbrella-storage';
 
+import './global/global.less';
+
 const { Content, Footer } = Layout;
 
 type AppProps = {
@@ -23,6 +25,7 @@ class App extends Component<AppProps> {
         collapsed: false,
         title: '',
     };
+
     componentWillMount() {
         const { setAlitaState } = this.props;
         let user = umbrella.getLocalStorage('user');
@@ -33,6 +36,7 @@ class App extends Component<AppProps> {
             this.getClientWidth();
         };
     }
+
     componentDidMount() {
         this.openFNotification();
         this.fetchSmenu();
@@ -41,29 +45,10 @@ class App extends Component<AppProps> {
     openFNotification = () => {
         const openNotification = () => {
             notification.open({
-                message: '博主-yezihaohao',
+                message: 'hello everyone',
                 description: (
                     <div>
-                        <p>
-                            GitHub地址：
-                            <a
-                                href="https://github.com/yezihaohao"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                https://github.com/yezihaohao
-                            </a>
-                        </p>
-                        <p>
-                            博客地址：
-                            <a
-                                href="https://yezihaohao.github.io/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                https://yezihaohao.github.io/
-                            </a>
-                        </p>
+                        <p>实践项目， 仅供学习，请勿用作商业用途</p>
                     </div>
                 ),
                 icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
@@ -84,7 +69,7 @@ class App extends Component<AppProps> {
             this.props.setAlitaState({ stateName: 'smenus', data: menus });
         };
         setAlitaMenu(umbrella.getLocalStorage('smenus') || []);
-        fetchMenu().then(smenus => {
+        fetchMenu().then((smenus) => {
             setAlitaMenu(smenus);
             umbrella.setLocalStorage('smenus', smenus);
         });
@@ -113,13 +98,16 @@ class App extends Component<AppProps> {
                         <SiderCustom collapsed={this.state.collapsed} />
                     )}
                     <ThemePicker />
-                    <Layout style={{ flexDirection: 'column' }}>
+                    <Layout style={{ flexDirection: 'column', minWidth: '1150px' }}>
                         <HeaderCustom
                             toggle={this.toggle}
                             collapsed={this.state.collapsed}
                             user={auth.data || {}}
                         />
-                        <Content style={{ padding: '15px', overflow: 'initial', flex: '1 1 0' }}>
+                        <Content
+                            className="page_content"
+                            style={{ padding: '15px', overflow: 'initial', flex: '1 1 0' }}
+                        >
                             <Routes auth={auth} />
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
