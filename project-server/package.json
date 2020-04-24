@@ -1,0 +1,31 @@
+{
+  "name": "koa-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node app.js",
+    "start server": "pm2 start app.js",
+    "stop server": "pm2 stop app"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.5.2",
+    "koa-body": "^4.0.4",
+    "koa-router": "^7.4.0",
+    "koa-send": "^5.0.0",
+    "koa-session": "^5.9.0",
+    "koa-static": "^5.0.0",
+    "log4js": "^3.0.6",
+    "mysql": "^2.16.0",
+    "node-cache": "^4.2.0",
+    "nodemailer": "^4.6.8",
+    "sqlite3": "^4.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "should": "^13.2.3"
+  }
+}
