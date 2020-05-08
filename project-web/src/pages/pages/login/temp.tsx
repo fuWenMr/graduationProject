@@ -1,13 +1,14 @@
 /**
- * Created by hao.cheng on 2017/4/16.
+ * Created by Mr.F
  */
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { PwaInstaller } from '../widget';
 import { connectAlita } from 'redux-alita';
 import { RouteComponentProps } from 'react-router';
 import { FormProps } from 'antd/lib/form';
 import umbrella from 'umbrella-storage';
+
+import { systemName } from '~/utils/constant';
 
 const FormItem = Form.Item;
 type LoginProps = {
@@ -45,7 +46,7 @@ class Login extends React.Component<LoginProps> {
     };
     gitHub = () => {
         window.location.href =
-            'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3006/&scope=user&state=reactAdmin';
+            'https://github.com/fuWenMr/graduationProject';
     };
     render() {
         const { getFieldDecorator } = this.props.form!;
@@ -53,8 +54,7 @@ class Login extends React.Component<LoginProps> {
             <div className="login">
                 <div className="login-form">
                     <div className="login-logo">
-                        <span>React Admin</span>
-                        <PwaInstaller />
+                        <span>{systemName}</span>
                     </div>
                     <Form onSubmit={this.handleSubmit} style={{ maxWidth: '300px' }}>
                         <FormItem>

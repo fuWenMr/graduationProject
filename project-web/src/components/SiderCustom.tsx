@@ -1,5 +1,5 @@
 /**
- * Created by hao.cheng on 2017/4/13.
+ * Created by Mr.F
  */
 import React, { Component } from 'react';
 import { Layout } from 'antd';
@@ -86,7 +86,9 @@ class SiderCustom extends Component<SiderCustomProps, SiderCustomState> {
     render() {
         const { selectedKey, openKeys, firstHide, collapsed } = this.state;
         const { smenus } = this.props;
-        console.log('是什么啊', smenus);
+        // console.log('在 看看你 smenus')
+        // console.log(smenus.data)
+        const smenusData = (smenus && smenus.data) || [] as Array<any>;
         return (
             <Sider
                 trigger={null}
@@ -97,7 +99,7 @@ class SiderCustom extends Component<SiderCustomProps, SiderCustomState> {
             >
                 <div className="logo" />
                 <SiderMenu
-                    menus={[...routes.menus, ...smenus.data]}
+                    menus={[...routes.menus, ...smenusData]}
                     onClick={this.menuClick}
                     mode="inline"
                     selectedKeys={[selectedKey]}
@@ -105,12 +107,12 @@ class SiderCustom extends Component<SiderCustomProps, SiderCustomState> {
                     onOpenChange={this.openMenu}
                 />
                 <style>
-                    {`
-                    #nprogress .spinner{
-                        left: ${collapsed ? '70px' : '206px'};
-                        right: 0 !important;
-                    }
-                    `}
+                {
+                  `#nprogress .spinner{
+                      left: ${collapsed ? '70px' : '206px'};
+                      right: 0 !important;
+                  }`
+                }
                 </style>
             </Sider>
         );

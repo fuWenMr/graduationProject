@@ -1,6 +1,8 @@
 import React from 'react';
 import getScript from './getScript';
 import { Icon, Tooltip } from 'antd';
+import { connectAlita } from 'redux-alita';
+import { STATE_CURRENT_APP } from '~/redux/reduxStateName';
 
 import { ProbelWrapper } from './styled';
 
@@ -17,8 +19,9 @@ class Probel extends React.Component<any> {
 
     render() {
         const { baseConfig, specialConfig } = this.props;
+        const currentApp = this.props[STATE_CURRENT_APP];
 
-        const scriptStrs = getScript(baseConfig, specialConfig);
+        const scriptStrs = getScript(baseConfig, specialConfig, currentApp && currentApp.data.id);
 
         return (
             <ProbelWrapper>
@@ -44,4 +47,4 @@ class Probel extends React.Component<any> {
     }
 }
 
-export default Probel;
+export default connectAlita([STATE_CURRENT_APP])(Probel);

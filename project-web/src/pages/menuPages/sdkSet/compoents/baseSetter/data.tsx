@@ -1,7 +1,7 @@
 export const checkList = [
     {
         title: '开启api上报',
-        name: 'ueAPI',
+        name: 'useAPI',
         tip: '关闭此选项后, 需要手动调用 api()方法上报信息',
     },
     {
@@ -26,7 +26,7 @@ export const checkList = [
     },
     {
         title: '允许额外性能数据上报',
-        name: 'useLate',
+        name: 'useCustomPerf',
         tip:
             '一般与SPA模式搭配,旨在解决spa应用难以度量实际渲染性能的问题,使用 load()API手动上报告额外的数据',
     },

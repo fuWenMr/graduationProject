@@ -1,17 +1,17 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import NotFound from './components/pages/NotFound';
-import Login from './components/pages/Login';
+import { Pag404 } from '~/pages/pages/errorPage';
+import Login from '~/pages/pages/login';
 import App from './App';
 
 export default () => (
     <Router>
         <Switch>
-            <Route exact path="/" render={() => <Redirect to="/app/home" push />} />
+            <Route exact path="/" render={() => <Redirect to="/app/data/index" push />} />
             <Route path="/app" component={App} />
-            <Route path="/404" component={NotFound} />
+            <Route path="/404" component={Pag404} />
             <Route path="/login" component={Login} />
-            <Route component={NotFound} />
+            <Route component={Pag404} />
         </Switch>
     </Router>
 );

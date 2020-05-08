@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
+import umbrella from 'umbrella-storage';
+import { connectAlita } from 'redux-alita';
+import { Layout, notification, Icon } from 'antd';
+
 import Routes from './routes';
 import DocumentTitle from 'react-document-title';
 import SiderCustom from './components/SiderCustom';
 import HeaderCustom from './components/HeaderCustom';
-import { Layout, notification, Icon } from 'antd';
+
+import ContentBar from './components/contentBar';
 import { ThemePicker } from './components/widget';
-import { connectAlita } from 'redux-alita';
-import { checkLogin } from './utils';
-import { fetchMenu } from './axios';
-import umbrella from 'umbrella-storage';
+
+import {
+  STATE_USER,
+  STATE_APP_LIST,
+  STATE_CURRENT_APP
+} from '~/redux/reduxStateName';
+// import { checkLogin } from './utils';
+// import { fetchMenu } from './axios';
 
 import './global/global.less';
+import '~/utils/reporter';
+
+require('datejs');
+
+
+declare global {
+  interface Window { __fw: any; }
+}
 
 const { Content, Footer } = Layout;
 
@@ -18,6 +35,7 @@ type AppProps = {
     setAlitaState: (param: any) => void;
     auth: any;
     responsive: any;
+    [STATE_USER] : any;
 };
 
 class App extends Component<AppProps> {
@@ -26,11 +44,21 @@ class App extends Component<AppProps> {
         title: '',
     };
 
+    // 把sessionStroage中的数据 同步到 redux中
+    private syncStroage = () => {
+      const { setAlitaState } = this.props;
+      
+      let keys = [STATE_USER, STATE_APP_LIST, STATE_CURRENT_APP];
+      (keys).forEach((key) => {
+        let obj = umbrella.getSessionStorage(key);
+        obj && setAlitaState({ stateName: key, data: obj });
+        console.log('同步', key, obj);
+      });
+    }
+
     componentWillMount() {
-        const { setAlitaState } = this.props;
-        let user = umbrella.getLocalStorage('user');
-        // user = storageUser && JSON.parse(storageUser);
-        user && setAlitaState({ stateName: 'auth', data: user });
+        console.log('企图同步数据');
+        this.syncStroage();
         this.getClientWidth();
         window.onresize = () => {
             this.getClientWidth();
@@ -65,14 +93,14 @@ class App extends Component<AppProps> {
      * 获取服务端异步菜单
      */
     fetchSmenu = () => {
-        const setAlitaMenu = (menus: any) => {
-            this.props.setAlitaState({ stateName: 'smenus', data: menus });
-        };
-        setAlitaMenu(umbrella.getLocalStorage('smenus') || []);
-        fetchMenu().then((smenus) => {
-            setAlitaMenu(smenus);
-            umbrella.setLocalStorage('smenus', smenus);
-        });
+        // const setAlitaMenu = (menus: any) => {
+        //     this.props.setAlitaState({ stateName: 'smenus', data: menus });
+        // };
+        // setAlitaMenu(umbrella.getLocalStorage('smenus') || []);
+        // fetchMenu().then((smenus) => {
+        //     setAlitaMenu(smenus);
+        //     umbrella.setLocalStorage('smenus', smenus);
+        // });
     };
 
     getClientWidth = () => {
@@ -90,20 +118,28 @@ class App extends Component<AppProps> {
     };
     render() {
         const { title } = this.state;
-        const { auth = { data: {} }, responsive = { data: {} } } = this.props;
+        const { 
+          auth = { data: {} },
+          responsive = { data: {} },
+          user = { data: {} },
+        } = this.props;
         return (
             <DocumentTitle title={title}>
                 <Layout>
-                    {!responsive.data.isMobile && checkLogin(auth.data.permissions) && (
+                    {!responsive.data.isMobile && (
                         <SiderCustom collapsed={this.state.collapsed} />
                     )}
                     <ThemePicker />
-                    <Layout style={{ flexDirection: 'column', minWidth: '1150px' }}>
-                        <HeaderCustom
-                            toggle={this.toggle}
-                            collapsed={this.state.collapsed}
-                            user={auth.data || {}}
-                        />
+                    <Layout style={{minWidth: '1000px' }}>
+                        <div style={{position: "sticky", top: '0px', zIndex: 10}}>
+                          <HeaderCustom
+                              toggle={this.toggle}
+                              collapsed={this.state.collapsed}
+                              user={user.data || {}}
+                          />
+                          <ContentBar />
+                        </div>
+                        
                         <Content
                             className="page_content"
                             style={{ padding: '15px', overflow: 'initial', flex: '1 1 0' }}
@@ -120,4 +156,4 @@ class App extends Component<AppProps> {
     }
 }
 
-export default connectAlita(['auth', 'responsive'])(App);
+export default connectAlita(['auth', 'responsive', STATE_USER])(App);

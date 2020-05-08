@@ -7,11 +7,14 @@ import DocumentTitle from 'react-document-title';
 import { connectAlita } from 'redux-alita';
 import umbrella from 'umbrella-storage';
 import queryString from 'query-string';
+
+import { STATE_USER } from '~/redux/reduxStateName';
 import AllComponents from '../pages';
 import routesConfig, { IFMenuBase, IFMenu } from './config';
 import { checkLogin } from '../utils';
 
 type CRouterProps = {
+    [STATE_USER]: string;
     auth: any;
     smenus: any;
 };
@@ -21,7 +24,7 @@ type CRouterState = {};
 class CRouter extends Component<CRouterProps, CRouterState> {
     getPermits = (): any[] | null => {
         const { auth } = this.props;
-        return auth ? auth.data.permissions : null;
+        return auth ? {permissions: null}.permissions : null;
     };
 
     requireAuth = (permit: any, component: React.ReactElement) => {
@@ -97,14 +100,25 @@ class CRouter extends Component<CRouterProps, CRouterState> {
 
     render() {
         const { smenus } = this.props;
+        // TODO 尼玛smenus这是个大坑
+        let smenusData = null as any;
+        if (smenus && smenus.data && Number(smenus.data.length) > 0 ) {
+          smenusData = smenus.data;
+        }
+        // console.log('缓存里存了什么',umbrella.getLocalStorage('smenus'));
+        if (umbrella.getLocalStorage('smenus') === 'undefined') {
+          umbrella.removeLocalStorage('smenus');
+        }
+
+
         return (
             <Switch>
                 {Object.keys(routesConfig).map((key) => this.createRoute(key))}
-                {(smenus.data || umbrella.getLocalStorage('smenus') || []).map(this.iterteMenu)}
+                {(smenusData || umbrella.getLocalStorage('smenus') || []).map(this.iterteMenu)}
                 <Route render={() => <Redirect to="/404" />} />
             </Switch>
         );
     }
 }
 
-export default connectAlita([{ smenus: null }])(CRouter);
+export default connectAlita([STATE_USER, { smenus: null }])(CRouter);

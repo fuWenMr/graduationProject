@@ -1,5 +1,5 @@
 /**
- * Created by hao.cheng on 2017/5/6.
+ * Created by Mr.F
  */
 import themeinfo from './theme-info.json';
 import themegrey from './theme-grey.json';

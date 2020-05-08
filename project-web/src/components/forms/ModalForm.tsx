@@ -1,5 +1,5 @@
 /**
- * Created by hao.cheng on 2017/4/15.
+ * Created by Mr.F
  */
 import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio } from 'antd';

@@ -9,6 +9,12 @@ package-lock.json
 avatar/
 !avatar/default
 
+# 带有个人信息的配置, 不上传
+config-private.js
+
+# 临时写探针的 太草率了不能让看到
+emmm/
+
 # Editor directories and files
 .idea
 .vscode

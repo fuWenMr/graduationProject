@@ -16,3 +16,79 @@
     color: transparent !important;
     user-select: none !important;
 }
+
+
+.header .ant-menu {
+  background: transparent;
+  color: #ffffff;
+}
+.header .ant-menu .ant-menu-item:hover {
+  color: #ffffff;
+}
+.header__trigger {
+  color: #ffffff;
+}
+
+// 点击
+._click_text {
+  cursor: pointer;
+  color: #1890ff;
+}
+._click {
+  cursor: pointer;
+}
+
+// 灰色文本
+._grey_tip_text {
+  color: darkgray;
+}
+._re_p {
+  margin: 0;
+}
+
+// 提示按钮 问号鼠标篇
+._tip_icon {
+  cursor: help;
+  margin: 0 6px;
+  color: gray;
+  font-size: 0.85em;
+}
+
+._ib {
+  display: inline-block;
+}
+
+// antd还原
+._back_antd {
+  color: #1890ff,
+}
+
+// 样式主题问题导致的重置需求
+
+.reset.reset_antd.ant-menu-root {
+  font-size: 14px;
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.65);
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  border-radius: 4px;
+  border: 0px;
+  padding: 4px 0;
+
+  font-family: -apple-system,BlinkMacSystemFont,segoe ui,pingfang sc,hiragino sans gb,microsoft yahei,helvetica neue,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
+
+  .ant-menu-item {
+    line-height: 30px;
+    color: rgba(0,0,0,.65);
+    padding: 5px 12px;
+    margin: 0px;
+    box-sizing: border-box;
+
+    &:hover{
+      background-color: #e6f7ff;
+    }
+  }
+}
+
+ol, ul {
+  list-style: none;
+}

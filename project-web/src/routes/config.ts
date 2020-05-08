@@ -21,7 +21,6 @@ const menus: {
 } = {
     menus: [
         // 菜单相关路由
-        { key: '/app/home', title: '首页', icon: 'mobile', component: 'OverAll' },
         {
             key: '/app/data',
             title: '数据',
@@ -31,7 +30,7 @@ const menus: {
                 { key: '/app/data/speed', title: '访问速度', component: 'Home' },
                 { key: '/app/data/error', title: '前端报错', component: 'Home' },
                 { key: '/app/data/api', title: 'API请求', component: 'Home' },
-                { key: '/app/data/sum', title: '自定义统计', component: 'Home' },
+                { key: '/app/data/sum', title: '自定义统计', component: 'Custom' },
             ],
         },
         {
@@ -41,9 +40,10 @@ const menus: {
             subs: [
                 { key: '/app/setting/waring', title: '报警设置', component: 'Home' },
                 { key: '/app/setting/user', title: '账户设置', component: 'Home' },
-                { key: '/app/setting/sdk', title: '监控配置', component: 'SdkSet' },
+                { key: '/app/setting/sdk', title: '应用配置', component: 'SdkSet' },
             ],
         },
+        { key: '/app/appList', title: '应用列表', icon: 'mobile', component: 'AppList' },
     ],
     others: [], // 非菜单相关路由
 };
