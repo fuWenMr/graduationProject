@@ -17,10 +17,10 @@ type IProps = {
 
 const scale = {
   speed: {
-    alias: '时间/ms'
+    alias: '时间/ms',
   },
   date: {
-    alias: '时间段'
+    alias: '时间段',
   }
 }
 

@@ -33,4 +33,5 @@ app.use(routers.allowedMethods());
 app.listen(8080);
 
 log.info("开始监听8080端口");
+log.info("localhost:8080/#/login");
 log.info("localhost.charlesproxy.com:8080/#/login");

@@ -39,7 +39,7 @@ class ContentBar extends React.Component<any> {
         if (res.resType === 0) {
           setStateData(setAlitaState, STATE_APP_LIST, res.apps);
           // 确定当前应用
-          setStateData(setAlitaState, STATE_CURRENT_APP, getCurrentApp(res.apps)); 
+          setStateData(setAlitaState, STATE_CURRENT_APP, getCurrentApp(res.apps), true); 
         }
       });
  
@@ -53,7 +53,7 @@ class ContentBar extends React.Component<any> {
     const nextAppId = e.key;
     const nextApp = appList && appList.find((app: any) => app.id === nextAppId);
     if (nextApp) {
-      setStateData(setAlitaState, STATE_CURRENT_APP, clone(nextApp));
+      setStateData(setAlitaState, STATE_CURRENT_APP, clone(nextApp), true);
       setTimeout(() => {
         window.location.reload();
       }, 0);

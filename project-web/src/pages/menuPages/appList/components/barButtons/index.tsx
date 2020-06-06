@@ -2,10 +2,11 @@ import React from 'react';
 import CreateButtonWithModal from '../createButtonWithModal';
 import JoinButtonWithModal from '../joinButtonWithModal';
 
-function BarButtons () {
+function BarButtons (props: { apps: any[] }) {
+  const { apps } = props;
   return <div className="bar_btns">
     <CreateButtonWithModal />
-    <JoinButtonWithModal />
+    <JoinButtonWithModal apps={apps} />
   </div>
 }
 

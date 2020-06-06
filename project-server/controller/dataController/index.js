@@ -1,6 +1,9 @@
 const dataSrvice = require("./service");
 const speedService = require("./service/speed-data-service");
 const countDataService = require("./service/count-data-service");
+const pvDataService = require("./service/pv-data-service");
+const errorDataService = require("./service/error-data-service");
+const apiDataService = require("./service/api-data-service");
 
 async function getSpeedAvg(ctx) {
   console.log("getSpeedAvg-----");
@@ -83,11 +86,116 @@ async function getCountData(ctx) {
   }
 }
 
+async function getPvCount(ctx) {
+  console.log("getPvCount-----");
+  // TODO 校验用户登录
+
+  const { appId, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data, ticks } = await pvDataService.getPvCount(
+    ...[appId, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data, ticks });
+}
+
+async function getErrorData(ctx) {
+  console.log("getErrorData-----");
+  // TODO 校验用户登录
+
+  const { appId, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data, ticks } = await errorDataService.getErrorData(
+    ...[appId, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data, ticks });
+}
+
+async function getErrorList(ctx) {
+  console.log("getErrorList-----");
+  // TODO 校验用户登录
+
+  const { appId, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data } = await errorDataService.getErrorList(
+    ...[appId, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data });
+}
+
+async function getStaticMissList(ctx) {
+  console.log("getStaticMissList-----");
+  // TODO 校验用户登录
+
+  const { appId, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data } = await errorDataService.getStaticMissList(
+    ...[appId, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data });
+}
+
+async function getErrorDetail(ctx) {
+  console.log("getErrorDetail-----");
+  // TODO 校验用户登录
+
+  const { appId, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data } = await errorDataService.getErrorDetail(
+    ...[appId, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data });
+}
+
+async function getApiList(ctx) {
+  console.log("getApiList-----");
+  // TODO 校验用户登录
+
+  const { appId, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data } = await apiDataService.getApiList(
+    ...[appId, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data });
+}
+
+async function getApiData(ctx) {
+  console.log("getApiList-----");
+  // TODO 校验用户登录
+  const { appId, apiUrl, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data } = await apiDataService.getApiData(
+    ...[appId, apiUrl, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data });
+}
+
+async function getApiErrorLog(ctx) {
+  console.log("getApiList-----");
+  // TODO 校验用户登录
+  const { appId, apiUrl, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data } = await apiDataService.getApiErrorLog(
+    ...[appId, apiUrl, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data });
+}
+
+async function getApiSpeedPrice(ctx) {
+  console.log("getApiList-----");
+  // TODO 校验用户登录
+  const { appId, apiUrl, timeEnd, timeStep, steps } = ctx.request.query;
+  const { data, ticks } = await apiDataService.getApiSpeedPrice(
+    ...[appId, apiUrl, timeEnd, timeStep, steps]
+  );
+  ctx.success({ resType: 0, data, ticks });
+}
+
 module.exports = {
+  getErrorData,
+  getErrorList,
+  getStaticMissList,
+  getErrorDetail,
   getSpeedAvg,
   getSpeedPrice,
   getCountData,
   getCustomKeys,
+  getPvCount,
+  getApiList,
+  getApiErrorLog,
+  getApiData,
+  getApiSpeedPrice,
 };
 
 /**

@@ -19,7 +19,9 @@ async function pvService(query, request, ctx) {
       page,
       appId,
       userAgent,
-      createAt: new Date().addHours(-3).toString("yyyy-MM-dd HH:mm:ss"),
+      createAt: new Date()
+        .addHours(-Math.floor(Math.random() * Math.floor(7)))
+        .toString("yyyy-MM-dd HH:mm:ss"),
     },
   ];
   const sql = `INSERT INTO pv_report(ip, page, appId, createAt, userAgent) VALUES ${params

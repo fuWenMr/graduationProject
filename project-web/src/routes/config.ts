@@ -27,9 +27,9 @@ const menus: {
             icon: 'switcher',
             subs: [
                 { key: '/app/data/index', title: '总览', component: 'OverAll' },
-                { key: '/app/data/speed', title: '访问速度', component: 'Home' },
-                { key: '/app/data/error', title: '前端报错', component: 'Home' },
-                { key: '/app/data/api', title: 'API请求', component: 'Home' },
+                // { key: '/app/data/speed', title: '访问速度', component: 'Home' },
+                { key: '/app/data/error', title: '前端报错', component: 'ErrorPage' },
+                { key: '/app/data/api', title: 'API请求', component: 'ApiPage' },
                 { key: '/app/data/sum', title: '自定义统计', component: 'Custom' },
             ],
         },
@@ -39,11 +39,11 @@ const menus: {
             icon: 'switcher',
             subs: [
                 { key: '/app/setting/waring', title: '报警设置', component: 'Home' },
-                { key: '/app/setting/user', title: '账户设置', component: 'Home' },
-                { key: '/app/setting/sdk', title: '应用配置', component: 'SdkSet' },
+                // { key: '/app/setting/user', title: '账户设置', component: 'Home' },
+                { key: '/app/setting/sdk', title: '项目配置', component: 'SdkSet' },
             ],
         },
-        { key: '/app/appList', title: '应用列表', icon: 'mobile', component: 'AppList' },
+        { key: '/app/appList', title: '项目列表', icon: 'mobile', component: 'AppList' },
     ],
     others: [], // 非菜单相关路由
 };

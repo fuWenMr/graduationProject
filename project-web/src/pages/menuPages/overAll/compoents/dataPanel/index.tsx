@@ -17,7 +17,12 @@ interface datasPanelProps {
 }
 
 function DataPanel(props: dataPanelProps) {
-  let { data, dataTitle, dataChange, needMore } = props;
+  let {
+    data,
+    dataTitle,
+    dataChange = 0,
+    needMore,
+  } = props;
   let DataChgangeIndex = () => {
     let isDataRise = dataChange >= 0;
     let isDataBetter = needMore === isDataRise;
@@ -32,7 +37,7 @@ function DataPanel(props: dataPanelProps) {
   return (
     <Card bordered={false} bodyStyle={{padding: '24px 12px'}}>
       <Wrapper>
-        <div className="data ">{data}</div>
+        <div className="data ">{data || '--'}</div>
         <div className="data_title ">{dataTitle}</div>
         <div className="data_change ">
           周同比:

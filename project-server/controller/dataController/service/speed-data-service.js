@@ -87,37 +87,32 @@ function getSql_speedPrice(
       continue;
     }
     sql_temp_strs.push(
-      `(SELECT speed, '30' as price, '${
-        resDateTicks[i]
-      }' as date from temp WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
+      `(SELECT speed, '30' as price, '${resDateTicks[i]}' as date from temp 
+      WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
         Math.ceil(num * 0.3) - 1
       },1) `
     );
     sql_temp_strs.push(
-      `(SELECT speed, '60' as price, '${
-        resDateTicks[i]
-      }' as date from temp WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
+      `(SELECT speed, '60' as price, '${resDateTicks[i]}' as date from temp 
+      WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
         Math.ceil(num * 0.6) - 1
       },1) `
     );
     sql_temp_strs.push(
-      `(SELECT speed, '80' as price, '${
-        resDateTicks[i]
-      }' as date from temp WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
+      `(SELECT speed, '80' as price, '${resDateTicks[i]}' as date from temp 
+      WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
         Math.ceil(num * 0.8) - 1
       },1) `
     );
     sql_temp_strs.push(
-      `(SELECT speed, '90' as price, '${
-        resDateTicks[i]
-      }' as date from temp WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
+      `(SELECT speed, '90' as price, '${resDateTicks[i]}' as date from temp 
+      WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
         Math.ceil(num * 0.9) - 1
       },1) `
     );
     sql_temp_strs.push(
-      `(SELECT speed, '95' as price, '${
-        resDateTicks[i]
-      }' as date from temp WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
+      `(SELECT speed, '95' as price,'${resDateTicks[i]}' as date 
+        from temp WHERE createAt>='${dateStart}' AND createAt<'${dateEnd}' ORDER BY speed LIMIT ${
         Math.ceil(num * 0.95) - 1
       },1) `
     );
@@ -160,9 +155,9 @@ async function getSpeedPrice(appId, speedKey, timeEnd, timeStep, steps) {
     resDateTicks,
     countMap
   );
-  console.log(sql);
+  // console.log(sql);
   const res = await sqlQuery(sql);
-  console.log(res);
+  // console.log(res);
   return { res, ticks: resDateTicks };
 }
 

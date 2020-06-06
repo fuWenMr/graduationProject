@@ -4,8 +4,11 @@ import {
   Geom,
   Axis,
   Tooltip,
-  Legend
+  Legend,
 } from 'bizcharts';
+import {
+  Empty,
+} from 'antd';
 import DataSet from "@antv/data-set";
 
 import { chartDataFold } from '~/utils';
@@ -33,7 +36,7 @@ class FChart extends React.Component<IProps> {
     });
     return <>
       {
-        data.length > 0 && (
+        data.length > 0 ? (
           <Chart height={400} data={dv} padding={"auto"} forceFit>
             <Legend
               marker="circle"
@@ -67,7 +70,7 @@ class FChart extends React.Component<IProps> {
               shape={'smooth'} 
             />
           </Chart>
-        )
+        ) : <Empty />
       }
     </>
   }

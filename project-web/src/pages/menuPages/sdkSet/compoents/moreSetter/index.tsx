@@ -87,7 +87,6 @@ class MoreSetter extends React.PureComponent<any> {
   }
 
   private handleDel = () => {
-    console.log('没反应是几个意思');
     const currentAPP = clone(this.props[STATE_CURRENT_APP].data);
     Modal.confirm({
       title: `你确定要删除应用 ${currentAPP.appName}吗？`,

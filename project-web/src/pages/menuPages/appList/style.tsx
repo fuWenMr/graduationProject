@@ -23,4 +23,21 @@ export const Wrapper = styled.div`
       background-color:  rgb(68, 195, 90);
     }
   }
+
+  table td {
+    color: rgb(51, 51, 51);
+    font-size: 12px;
+
+    .table_operate {
+      .operate_item {
+        cursor: pointer;
+        display: inline-block;
+        color: rgb(0, 112, 204);
+
+        &.delete {
+          color: red;
+        }
+      }
+    }
+  }
 `;

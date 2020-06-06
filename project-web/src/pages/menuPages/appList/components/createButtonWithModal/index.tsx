@@ -88,7 +88,7 @@ class CreateButtonWithModal extends React.Component<FormProps> {
         <Form {...formItemLayout}>
           <Form.Item label="应用名称">
             {getFieldDecorator('appName', {
-              rules: [{ required: true, message: 'Please input your E-mail!' }],
+              rules: [{ required: true, message: '项目名不能为空' }],
             })(<Input />)}
           </Form.Item>
           <Form.Item label="应用描述">

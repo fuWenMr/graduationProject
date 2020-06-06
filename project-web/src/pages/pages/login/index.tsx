@@ -31,8 +31,6 @@ class LoginPage extends React.PureComponent {
   private initState() {
     let type = queryString().type;
 
-    console.log('look',type);
-
     type = this.types.includes(type) ? type : 'login';
 
     return { type };

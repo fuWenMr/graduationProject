@@ -1,6 +1,7 @@
 const { getTimseTicks } = require("../../../utils/tool");
 const { sqlQuery } = require("../../../db/mysql");
 
+// 获得所有自定义的key
 async function getCustomKeys(
   appId,
   startEnd = new Date().addHours(1),

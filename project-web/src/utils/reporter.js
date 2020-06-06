@@ -23,18 +23,25 @@ count('necvdaslkfe_hello_world', getRandomInt(20), 500);
 
 
 // 制造一次错误
-// const a = {};
-// setTimeout(() => {
-//   throw new Error('hello is error')
-// }, 1);
-// setTimeout(() => {
-//   throw new Error('nothing to work')
-// }, 60 * 1000 *2);
+const a = {};
+if (getRandomInt(20) >15) {
+  setTimeout(() => {
+    if (getRandomInt(20) >5) {
+      setTimeout(()=>{ a.hello()},1);
+      setTimeout(() => {window.location.reload();}, 1100);
+    } else {
+      setTimeout(() => {window.location.reload();}, 1100);
+    }
+    a.hello();
+  }, 1);
+}
 
-setTimeout(() => {
-  document.createElement('img').src='https://stackeflow.com/questions/22345290/how-to-get-sensor-data-over-tcp-ip-in-';
-}, 6);
 
-setTimeout(() => {
-  document.createElement('img').src='http://sdfsdfasf.sdf.com/sdfdsaf/dsfa';
-}, 60 * 1000 *2);
+// 制造一次 api上报
+if (getRandomInt(20) >11) {
+  fw.api && fw.api('eep://api.hello', 220, false, 500, 'error');
+} else {
+  fw.api && fw.api('eep://api.hello', 200);
+}
+
+

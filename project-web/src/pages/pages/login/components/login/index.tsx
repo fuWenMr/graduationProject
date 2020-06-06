@@ -50,7 +50,7 @@ class LoginPanel extends React.Component<LoginProps> {
             if (res.resType === 0) {
               console.log('登录成功, 准备跳转');
               setStateData(setAlitaState, STATE_USER, { userName });
-              this.props.history.push('/');
+              this.props.history.push('/app/data/index');
             } else {
               this.setState({errorMsg: res.msg || '登陆失败'})
             }

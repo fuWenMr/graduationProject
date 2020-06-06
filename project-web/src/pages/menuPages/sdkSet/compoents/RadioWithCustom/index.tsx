@@ -1,7 +1,7 @@
 import React from 'react';
 import { Radio } from 'antd';
 
-export interface IProps {
+interface IProps {
   title?: string;
   name?: string;
   value?: string;

@@ -40,7 +40,7 @@ async function getCountData(
 ) {
   const { dbDateTicks, resDateTicks } = getTimseTicks(timeEnd, timeStep, steps);
   const sql = getSQL_countData(appId, countKeys, dbDateTicks, resDateTicks);
-  console.log(sql);
+  // console.log(sql);
 
   const res = await sqlQuery(sql);
 

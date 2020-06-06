@@ -122,7 +122,7 @@ class SpecialSetter extends React.PureComponent<any> {
                 </li>
                 <li>
                   保存当前版本的探针脚本(
-                  <a href="https://github.com/fuWenMr/graduationProject" download>
+                  <a href={defaultProbelUrl} download="probel.js">
                     探针下载
                   </a>
                   ),修改最后一行中的url为自己的服务器接口地址,防止收到以后可能的版本更新影响

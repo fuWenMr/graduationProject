@@ -1,6 +1,4 @@
-/**
- * Created by 叶子 on 2017/8/13.
- */
+
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
@@ -35,10 +33,10 @@ class CRouter extends Component<CRouterProps, CRouterState> {
     };
     requireLogin = (component: React.ReactElement, permit: any) => {
         const permits = this.getPermits();
-        if (!checkLogin(permits)) {
-            // 线上环境判断是否登录
-            return <Redirect to={'/login'} />;
-        }
+        // if (!checkLogin(permits)) {
+        //     // 线上环境判断是否登录
+        //     return <Redirect to={'/login'} />;
+        // }
         return permit ? this.requireAuth(permit, component) : component;
     };
 

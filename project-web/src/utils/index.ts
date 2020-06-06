@@ -46,9 +46,12 @@ export function getJSONByForm(from: any, extraData?: any) {
 }
 
 
-export function setStateData (reduxSetter: Function, stateName: string, data: any) {
+export function setStateData (reduxSetter: Function, stateName: string, data: any, isLocal = false) {
   if (data === undefined) { return; }
   umbrella.setSessionStorage(stateName, data);
+  if (isLocal) {
+    umbrella.setLocalStorage(stateName, data);
+  }
   reduxSetter({
     stateName,
     data,
@@ -107,6 +110,29 @@ export function isArrItemSame(arr1: Array<string>, arr2: Array<string>) :boolean
 export function getRandomInt(max: number) {
   return Math.floor(Math.random() * Math.floor(max));
 }
+
+/**
+ * 根据ticks 对已排序的数据做纵向的补全
+ * @param dataSource 
+ * @param ticks 
+ * @param tickKey 
+ */
+export function complementWithTicks(dataSource: any[], ticks: string[], tickKey: string) {
+  if (dataSource.length === 0 || ticks.length === 0) {
+    return [];
+  }
+  let flag = {} as any;
+  let res = ticks.map((tickValue: string, index: number) => {
+    flag[tickValue] = index;
+    return { [tickKey]: tickValue };
+  });
+  for (let row of dataSource) {
+    const index = flag[row[tickKey]];
+    res[index] = row;
+  }
+  return clone(res);
+}
+
 
 /**
  * 补全图表格的数据  用undefined填充未知项 防止图标断层位置被绘制
@@ -169,7 +195,6 @@ export function chartDataFold(data: Array<any>, foldConfig: FoldConfig) {
   });
 
   console.log(dv.rows)
-
   return dv;
 }
 
@@ -194,4 +219,13 @@ export function copyText(text: string) {
   document.body.removeChild(textarea); //删除元素
   currentFocus.focus();
   return flag;
+}
+
+export function numberFormatter(num: number) {
+  // k ,w, kw
+  // eslint-disable-next-line
+  let res = new String(num);
+  if(num> 1000) {
+    res = `(num/100).toFixed(1)`;
+  }
 }
