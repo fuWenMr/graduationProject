@@ -117,12 +117,6 @@
             "path": "node_modules/cz-conventional-changelog"
         }
     },
-    "husky": {
-        "hooks": {
-            "commit-msg": "commitlint -e $GIT_PARAMS",
-            "pre-commit": "pretty-quick --staged"
-        }
-    },
     "eslintConfig": {
         "extends": "react-app",
         "rules": {
@@ -214,7 +208,6 @@
         "enhanced-resolve": "^4.1.1",
         "graceful-fs": "^4.2.3",
         "has-flag": "^4.0.0",
-        "husky": "^3.0.5",
         "json-parse-better-errors": "^1.0.2",
         "jsonfile": "^6.0.1",
         "less": "2.x",
