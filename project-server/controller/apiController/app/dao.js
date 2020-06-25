@@ -1,4 +1,4 @@
-const { App, User_app } = require("../../../model");
+const { App, User, User_app, Alarm } = require("../../../model");
 const { sequelize } = require("../../../db/orm");
 const { CountGroup } = require("../../../model");
 const { Op } = require("sequelize");
@@ -19,17 +19,20 @@ const dao = {
       where: {
         appId,
       },
+      include: [User]
     });
     return users;
   },
 
   async deleteAppUsers(appId, users) {
-    await User_app.destroy({
-      where: {
-        appId,
-        userName: users,
-      },
-    });
+   
+      await User_app.destroy({
+        where: {
+          appId,
+          userName: users,
+        },
+      });
+
     return true;
   },
 
@@ -99,6 +102,10 @@ const dao = {
     );
 
     return updateNum > 0 ? true : false;
+  },
+  async isOwner(user, appId) {
+    const app = await App.findByPk(appId);
+    return app.owner === userName;
   },
 
   async delApp(userName, appid) {
@@ -174,6 +181,29 @@ const dao = {
   },
   async rejectUserJoinApp(userName, appId) {},
   async outApp(userName, appId) {},
+
+  async getAlarm(appId) {
+    const alarm = Alarm.findOrCreate({
+      where: {
+        appId
+      }
+    });
+    return alarm;
+  },
+
+  async setAlarm(appId, values) {
+    const alarm = await Alarm.findByPk(appId);
+    console.log('==========================');
+    alarm.values = values;
+    await Alarm.update({
+      values,
+    },{
+      where: {
+        appId,
+      }
+    });
+    return true;
+  },
 
   changeCountGroups: async (appId, changes) => {
     // const { type, groupKey, items } = changes[0];

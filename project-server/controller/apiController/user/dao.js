@@ -38,10 +38,11 @@ const dao = {
     return user;
   },
 
-  async registerNewUser(userName, password) {
+  async registerNewUser(userName, password, ali) {
     const user = await User.create({
       userName,
       password,
+      ali,
     });
 
     return user;

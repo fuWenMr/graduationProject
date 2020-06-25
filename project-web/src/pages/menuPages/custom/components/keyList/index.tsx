@@ -31,8 +31,10 @@ function KeyListHelperIcon() {
 class KeyList extends React.Component<any> {
   state = {
     loading: true,
-    countKeys: [],
+    countKeys: [] as string[],
+    filterKey: '',
   };
+  private inputRef = React.createRef() as React.RefObject<any>;
 
   componentDidMount() {
     const currentApp = this.props[STATE_CURRENT_APP] && this.props[STATE_CURRENT_APP].data;
@@ -74,11 +76,38 @@ class KeyList extends React.Component<any> {
     }
   }
 
+  private filter = () => {
+    const {
+      countKeys,
+      filterKey,
+    } = this.state;
+    console.log('---', filterKey);
+    if (!filterKey) {
+      return countKeys;
+    }
+    let res = [];
+    for (let key of countKeys) {
+      console.log()
+      if (key.includes(filterKey)) {
+        res.push(key);
+      }
+    }
+    return res;
+  }
+
+  private handleSearch = () => {
+    const value = this.inputRef.current.value;
+    this.setState({
+      filterKey: value,
+    })
+    console.log('filterKey', value);
+  };
+
   render() {
     const { 
       loading,
-      countKeys,
     } = this.state;
+    const countKeys = this.filter();
 
     const keyList = countKeys.length > 0 && <ul className="custom_key_list">
       {
@@ -112,8 +141,8 @@ class KeyList extends React.Component<any> {
           spinning={loading}
         >
           <div className="search_input">
-            <input placeholder="搜索你想要找的key" />
-            <span className="search_btn"><Icon type="search" /></span>
+            <input ref={this.inputRef} placeholder="搜索你想要找的key" />
+            <span className="search_btn" onClick={this.handleSearch} ><Icon type="search" /></span>
           </div>
           <div className="res_list">
             {keyList}

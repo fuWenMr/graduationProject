@@ -51,7 +51,7 @@ class Areanull extends React.Component<IProps> {
       ticks,
     } = this.props;
 
-    console.log('看看结论把', data, ticks)
+    // console.log('看看结论把', data, ticks)
 
     let dv = chartDataFold(data, {ticks, tickKey: 'date', typeKey: 'price', valueKey: 'speed', DV: DataSet.View });
 

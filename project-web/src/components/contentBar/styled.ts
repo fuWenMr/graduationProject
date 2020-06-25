@@ -22,6 +22,13 @@ export const Wrapper = styled.div`
       margin-right: 10px;
     }
   }
+  .right {
+    float: right;
+    margin-right: 48px;
+    .current_time {
+      font-weight: 800;
+    }
+  }
 `;
 
  

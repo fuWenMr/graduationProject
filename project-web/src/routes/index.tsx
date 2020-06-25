@@ -9,7 +9,6 @@ import queryString from 'query-string';
 import { STATE_USER } from '~/redux/reduxStateName';
 import AllComponents from '../pages';
 import routesConfig, { IFMenuBase, IFMenu } from './config';
-import { checkLogin } from '../utils';
 
 type CRouterProps = {
     [STATE_USER]: string;
@@ -32,7 +31,7 @@ class CRouter extends Component<CRouterProps, CRouterState> {
         return component;
     };
     requireLogin = (component: React.ReactElement, permit: any) => {
-        const permits = this.getPermits();
+        // const permits = this.getPermits();
         // if (!checkLogin(permits)) {
         //     // 线上环境判断是否登录
         //     return <Redirect to={'/login'} />;

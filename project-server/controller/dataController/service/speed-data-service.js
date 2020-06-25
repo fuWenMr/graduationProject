@@ -3,6 +3,7 @@ const { getTimseTicks } = require("../../../utils/tool");
 const { sqlQuery } = require("../../../db/mysql");
 
 function getSpeedAvgSql(appId, DateStart, timeStep, steps) {
+  DateStart.addHours(1);
   let times = [DateStart.toString(dbDateFormat)];
   let sql_union_strs = [];
   let ticks = [];

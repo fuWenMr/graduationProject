@@ -46,7 +46,6 @@ class ErrorLog extends React.PureComponent<IProps> {
       data,
     } = this.props;
 
-    console.log('看看数据', data)
     const {
       show404,
     } = this.state;

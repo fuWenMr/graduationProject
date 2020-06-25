@@ -45,9 +45,9 @@ class ConfigSetter extends React.Component<any> {
         const cardContent = this.getCardContent();
         return (
             <>
-                <Card tabs={tabs} useChild onTabChange={this.onTabChange}>
-                    {cardContent}
-                </Card>
+              <Card tabs={tabs} useChild onTabChange={this.onTabChange}>
+                {cardContent}
+              </Card>
             </>
         );
     }

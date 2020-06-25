@@ -5,6 +5,8 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { connectAlita } from 'redux-alita';
 import { RouteComponentProps } from 'react-router';
+import umbrella from 'umbrella-storage';
+import { RENCET_LOGIN } from '~/utils/constant/storageKey';
 import { withRouter } from 'react-router-dom';
 import { FormProps } from 'antd/lib/form';
 import { STATE_USER } from '~/redux/reduxStateName';
@@ -30,6 +32,14 @@ class LoginPanel extends React.Component<LoginProps> {
     setAlitaState({ stateName: 'auth', data: null });
   }
 
+  private remember = (remember: boolean, userName: string, password: string) => {
+    umbrella.setLocalStorage(RENCET_LOGIN, { 
+      userName: remember ? userName : '',
+      password: remember ? password : '',
+      remember,
+    });
+  }
+
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     this.props.form!.validateFields((err, values) => {
@@ -37,27 +47,25 @@ class LoginPanel extends React.Component<LoginProps> {
         const { 
           userName,
           password,
+          remember,
         } = values;
 
         const { setAlitaState } = this.props;
-        if (values.userName === 'admin' && values.password === 'admin')
-          setAlitaState({ funcName: 'admin', stateName: 'auth' });
-        else if (values.userName === 'guest' && values.password === 'guest')
-          setAlitaState({ funcName: 'guest', stateName: 'auth' });
-        else {
-          this.setState({ loading: true });
-          doLogin(userName, password).then((res: any) => {
-            if (res.resType === 0) {
-              console.log('登录成功, 准备跳转');
-              setStateData(setAlitaState, STATE_USER, { userName });
-              this.props.history.push('/app/data/index');
-            } else {
-              this.setState({errorMsg: res.msg || '登陆失败'})
-            }
-          }).finally(() => {
-            this.setState({ loading: false });
-          });
-        }
+
+        this.setState({ loading: true });
+        doLogin(userName, password).then((res: any) => {
+          if (res.resType === 0) {
+            const { user } = res;
+            setStateData(setAlitaState, STATE_USER, { userName, ali: user.ali });
+            this.remember(remember, userName, password);
+            this.props.history.push('/app/data/index');
+          } else {
+            this.setState({errorMsg: res.msg || '登陆失败'})
+          }
+        }).finally(() => {
+          this.setState({ loading: false });
+        });
+        
       }
     });
   };
@@ -69,8 +77,10 @@ class LoginPanel extends React.Component<LoginProps> {
     const {
       loading,
       errorMsg,
-    } = this.state
+    } = this.state;
     const { getFieldDecorator } = this.props.form!;
+    // 上次登录的记住值
+    const recentLogin = umbrella.getLocalStorage(RENCET_LOGIN) || {};
     return (
       <Form onSubmit={this.handleSubmit} style={{ maxWidth: '300px' }}>
 
@@ -80,6 +90,7 @@ class LoginPanel extends React.Component<LoginProps> {
               { required: true, message: '请输入email' },
               { type: 'email', message: '不是合法email' }
             ],
+            initialValue: recentLogin.userName || '',
           })(
             <Input
               prefix={<Icon type="user" style={{ fontSize: 13 }} />}
@@ -93,6 +104,7 @@ class LoginPanel extends React.Component<LoginProps> {
         <FormItem>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: '请输入密码!' }],
+            initialValue: recentLogin.password || '',
           })(
             <Input
               prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
@@ -104,7 +116,7 @@ class LoginPanel extends React.Component<LoginProps> {
         <FormItem>
           {getFieldDecorator('remember', {
             valuePropName: 'checked',
-            initialValue: true,
+            initialValue: recentLogin.remember,
           })(<Checkbox>记住我</Checkbox>)}
           { /* eslint-disable-next-line*/}
           <a href="javascript:;" onClick={changeType.toReset} className="login-form-forgot">

@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require("Sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const { sequelize } = require("../../db/orm");
 
 const User = sequelize.define(
@@ -11,6 +11,10 @@ const User = sequelize.define(
       allowNull: false,
     },
     password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    ali: {
       type: DataTypes.STRING,
       allowNull: false,
     },

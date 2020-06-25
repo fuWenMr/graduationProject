@@ -38,7 +38,7 @@ const menus: {
             title: '设置',
             icon: 'switcher',
             subs: [
-                { key: '/app/setting/waring', title: '报警设置', component: 'Home' },
+                { key: '/app/setting/alarm', title: '报警设置', component: 'AlarmPage' },
                 // { key: '/app/setting/user', title: '账户设置', component: 'Home' },
                 { key: '/app/setting/sdk', title: '项目配置', component: 'SdkSet' },
             ],

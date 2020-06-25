@@ -24,7 +24,6 @@ class OverAll extends React.Component<any> {
 
   constructor(props: any) {
     super(props);
-    console.log('看看', props);
     const currentApp = props[STATE_CURRENT_APP] && props[STATE_CURRENT_APP].data;
     this.appId = (currentApp || {}).id || '';
   }
@@ -45,7 +44,6 @@ class OverAll extends React.Component<any> {
 
   private getPvData() {
     getPvCount(this.appId).then((res: any) => {
-      console.log('wtf ', res.data);
       if (res.resType === 0) {
         this.setState({ data: res.data, ticks: res.ticks });
       }

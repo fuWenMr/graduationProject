@@ -56,8 +56,8 @@ class AppList extends React.Component<any> {
       } 
     });
     
-    console.log('admin', adminApps);
-    console.log('join', joinApps);
+    // console.log('admin', adminApps);
+    // console.log('join', joinApps);
 
     const filterInput = <Input
       ref={this.keyWordInput}

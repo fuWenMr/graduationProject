@@ -172,6 +172,38 @@ async function getApiErrorLog(ctx) {
   ctx.success({ resType: 0, data });
 }
 
+async function getJ(ctx) {
+  console.log("getApiList-----");
+  // TODO 校验用户登录
+  const { appId } = ctx.request.query;
+
+  const res = await new Promise((reslove) => {
+    let resType = (appId === 'b16324e1-5dac-49f2-8b75-2ca81323fbc6') ? 0 : 1;
+    console.log(resType, appId)
+    setTimeout(() => {reslove({
+      resType,
+      data: {
+        renderTime: 668,
+        renderTimeChange: 0,
+        jsErrorNum: 75,
+        jsErrorNumChange: 0,
+        jsErrorRatio : 26,
+        jsErrorRatioChange: 0,
+        apiErrorNum: 77,
+        apiErrorNumChange : 0,
+        apiErrorRatio: 13,
+        apiErrorRatioChange: 0,
+        staticMissNum: 99,
+        staticMissNumChange: 0,
+        staticMissRatio: 100,    
+        staticMissRatioChange: 0,  
+      }
+    })}, 1100);
+  });
+
+  ctx.success(res);
+}
+
 async function getApiSpeedPrice(ctx) {
   console.log("getApiList-----");
   // TODO 校验用户登录
@@ -195,6 +227,7 @@ module.exports = {
   getApiList,
   getApiErrorLog,
   getApiData,
+  getJ,
   getApiSpeedPrice,
 };
 

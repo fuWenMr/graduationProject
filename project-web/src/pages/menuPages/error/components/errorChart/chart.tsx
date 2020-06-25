@@ -37,7 +37,6 @@ class FChart extends React.Component<IProps> {
         row.type = '受影响访问数';
       }
     }
-    console.log('看看效果', dv.rows)
     return <>
       {
         data.length > 0 && (

@@ -4,6 +4,7 @@ import { connectAlita } from 'redux-alita';
 import { Layout, notification, Icon } from 'antd';
 
 import Routes from './routes';
+import { RouteComponentProps } from 'react-router';
 import DocumentTitle from 'react-document-title';
 import SiderCustom from './components/SiderCustom';
 import HeaderCustom from './components/headerCustom';
@@ -36,7 +37,7 @@ type AppProps = {
   auth: any;
   responsive: any;
   [STATE_USER] : any;
-};
+} & RouteComponentProps;
 
 class App extends Component<AppProps> {
   state = {
@@ -52,14 +53,23 @@ class App extends Component<AppProps> {
     (keys).forEach((key) => {
     let obj = umbrella.getLocalStorage(key) || umbrella.getSessionStorage(key);
     obj && setAlitaState({ stateName: key, data: obj });
-    console.log('同步', key, obj);
+    if(key === STATE_USER && obj) {
+      umbrella.setLocalStorage('isLo0gin', 1);
+    }
     });
+  }
 
+  private checkLogin = () => {
+    const { history } = this.props;
+    if (window.location.hash.startsWith('#/app') && !umbrella.getLocalStorage('isLo0gin')) {
+      history.push('/login')
+    }
   }
 
   componentWillMount() {
     console.log('企图同步数据');
     this.syncStroage();
+    this.checkLogin();
     this.getClientWidth();
     window.onresize = () => {
       this.getClientWidth();
@@ -69,6 +79,10 @@ class App extends Component<AppProps> {
   componentDidMount() {
     this.openFNotification();
     this.fetchSmenu();
+  }
+
+  update = () => {
+    this.forceUpdate();
   }
 
   openFNotification = () => {
@@ -129,9 +143,8 @@ class App extends Component<AppProps> {
                 collapsed={this.state.collapsed}
                 user={user.data || {}}
               />
-              <ContentBar />
+              <ContentBar update={this.update} />
             </div>
-            
             <Content
               className="page_content"
               style={{ padding: '15px', overflow: 'initial', flex: '1 1 0' }}

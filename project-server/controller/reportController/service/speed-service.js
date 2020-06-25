@@ -30,7 +30,7 @@ async function speedService(query, request) {
         VALUES (?, ?, ?, ?)`;
       const values = [id, now, key, Number(query[key])];
       sqlQuery(sql, values);
-      sqlQuery(sql, [id, before, key, Number(query[key])]);
+      // sqlQuery(sql, [id, before, key, Number(query[key])]);
     }
   }
   console.log(`${id}收到了一次speed上报`);

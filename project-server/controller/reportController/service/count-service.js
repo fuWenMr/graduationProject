@@ -22,7 +22,7 @@ async function countService(query, request) {
   VALUES (?, ?, ?, ?)`;
   const values = [id, now, key, Number(count)];
   sqlQuery(sql, values);
-  sqlQuery(sql, [id, before, key, Number(count)]);
+  // sqlQuery(sql, [id, before, key, Number(count)]);
 }
 
 module.exports = countService;

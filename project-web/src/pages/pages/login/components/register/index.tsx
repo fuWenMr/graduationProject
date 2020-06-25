@@ -48,7 +48,7 @@ class LoginPanel extends React.PureComponent<IProps> {
           loading: true,
         });
 
-        doRegister(values.userName, values.password).then((data: any) => {
+        doRegister(values.userName, values.password, values.ali).then((data: any) => {
           console.log('待处理数据', data);
           if (data.resType === 0) {
             // 注册成功
@@ -86,6 +86,16 @@ class LoginPanel extends React.PureComponent<IProps> {
             <Input
               prefix={<Icon type="user" style={{ fontSize: 13 }} />}
               placeholder="请输入你的email"
+            />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('ali', {
+            rules: [{ required: true, message: '请输入名称!' }],
+          })(
+            <Input
+              prefix={<Icon type="meh" style={{ fontSize: 13 }} />}
+              placeholder="请输入你的名称"
             />
           )}
         </FormItem>

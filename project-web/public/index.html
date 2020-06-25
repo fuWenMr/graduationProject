@@ -8,35 +8,28 @@
 
         <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-        <title>React Admin</title>
+        <title>F-PALANTIR</title>
     </head>
 
     <body>
-        <script>
-            !(function (a, b, c, d, e) {
-                a[c] || (a[c] = {});
-                a[c].config = {
-                    base:
-                        '{"ueAPI":"true","useStatic":"true","useError":"true","useSPA":"true","usePerf":"true","useLate":"true"}',
-                    id: 'b16324e1-5dac-49f2-8b75-2ca81323fbc6',
-                    alias: '__fw',
-                    ratio: 1,
-                    probelUrl: b,
-                    imgUrl: e,
-                };
-                with (document) write('<script src="' + b + '"><\/script>');
-                (a[d] = a[c]), d !== c && delete a[c];
-            })(
-                window,
-                'http://localhost.charlesproxy.com:8080/__fw.js',
-                '__fw',
-                '__fw',
-                'http://localhost.charlesproxy.com:8080/report/w_png'
-            );
+      <script>
+
+        !function(a,b,c,d,e){
+        
+        a[c]||(a[c]={});a[c].config={base:'{"useAPI":"true","useStatic":"true","useError":"true","useSPA":"true","usePerf":"true","useCustomPerf":"true"}',
+        
+        id:'b16324e1-5dac-49f2-8b75-2ca81323fbc6',alias:'__fw',ratio:0.5,probelUrl:b,imgUrl:e};
+        
+        with(document)write('<script src="'+b+'"><\/script>');
+        
+        a[d]=a[c], (d!==c)&&delete a[c];
+        
+        }(window,'https://since-util.oss-cn-beijing.aliyuncs.com/palantir/__fw.js','__fw','__fw','http://localhost:8080/report/w_png')
+        
         </script>
 
         <link rel="stylesheet/less" type="text/css" href="/theme.less" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
+        <script src="/less.min.js"></script>
         <script>
             const primaryColor = localStorage.getItem('@primary-color');
             primaryColor &&

@@ -14,20 +14,32 @@ export const Wrapper = styled.div`
 
     .user_item, .user_item_choose {
       display: block;
-      height: 36px;
+      height: 42px;
+      padding-top: 2px; 
       max-width: 255px;
       border-radius: 6px;
       margin: 6px auto; 
       font-size: 15px;
       line-height: 36px;
+
+      .user_name {
+        margin-left: 8px;
+      }
     }
     .user_item {
       cursor: pointer;
+      height: 42px;
+      padding-top: 2px; 
 
       &:hover {
         color: #fa541c;
         background: #fff2e8;
         border-color: #ffbb96;
+      }
+
+      .user_name {
+        margin-left: 8px;
+        font-size: 12px;
       }
     }
   }

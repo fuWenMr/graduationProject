@@ -93,13 +93,13 @@ async function editApp(ctx) {
     return;
   }
   const { appId, appInfo } = ctx.request.body;
-  // const app = await dao.findAppById(appId);
-  // if (!app || app.owner !== userName) {
-  //   ctx.success({ resType: 1104, msg: '无权限修改' });
-  //   return ;
-  // }
-  // app.appInfo = appInfo,
-  // await app.save();
+  const app = await dao.findAppById(appId);
+  if (!app || app.owner !== userName) {
+    ctx.success({ resType: 1104, msg: '无权限修改' });
+    return ;
+  }
+  app.appInfo = appInfo,
+  await app.save();
   ctx.success({ resType: 0 });
 }
 
@@ -165,7 +165,8 @@ async function deleteAppUsers(ctx) {
     return;
   }
   const { appId, users } = ctx.request.body;
-  await dao.deleteAppUsers(appId, users);
+  console.log(users)
+  await dao.deleteAppUsers(appId, JSON.parse(users));
   ctx.success({ resType: 0 });
 }
 
@@ -190,6 +191,34 @@ async function outApp(ctx) {
   ctx.success({ resType: 0 });
 }
 
+async function setAlarm(ctx) {
+  const userName = ctx.session.user;
+  if (!userName) {
+    return;
+  }
+  const { appId, alarms } = ctx.request.body;
+  await dao.setAlarm(appId, alarms);
+  const values = await dao.getAlarm(appId);
+  ctx.success({ resType: 0, data: values });
+}
+
+async function getAlarm(ctx) {
+  const userName = ctx.session.user;
+  if (!userName) {
+    return;
+  }
+  const { appId } = ctx.request.body;
+  const alarms = await dao.getAlarm(appId);
+  
+  let res = [];
+  for ( let a of alarms) {
+    if (a !== true && a!==false) {
+      res.push(a);
+    }
+  }
+  ctx.success({ resType: 0, data: res });
+}
+
 module.exports = {
   getUserApps,
   bindUrl,
@@ -206,4 +235,6 @@ module.exports = {
   deleteAppUsers,
   newBoss,
   outApp,
+  setAlarm,
+  getAlarm,
 };

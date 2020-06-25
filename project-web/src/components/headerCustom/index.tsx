@@ -4,13 +4,14 @@
 import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import SiderCustom from '../SiderCustom';
-import { Menu, Icon, Layout, Badge, Popover } from 'antd';
+import { Menu, Icon, Layout, Badge, Popover, Avatar } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import MessageModal from './components/messageModal'
 import { doLogout, getMessage } from '~/ajax';
 import { PwaInstaller } from '../widget';
 import { connectAlita } from 'redux-alita';
 import umbrella from 'umbrella-storage';
+import { RENCET_LOGIN } from '~/utils/constant/storageKey';
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -90,6 +91,7 @@ class HeaderCustom extends Component<HeaderCustomProps> {
   logout = () => {
     umbrella.removeLocalStorage('user');
     doLogout().finally(() => {
+      umbrella.removeLocalStorage(RENCET_LOGIN);
       this.props.history.push('/login');
     });
   };
@@ -158,7 +160,15 @@ class HeaderCustom extends Component<HeaderCustomProps> {
             />
           </Menu.Item>
           <SubMenu
-            title={`欢迎 ~ ${user.userName || ''}`}
+            // title={`欢迎 ~ ${user.userName || ''}`}
+            title={
+              <>
+                欢迎 ~ <span className="space">~</span>
+                <Avatar size={32} style={{backgroundColor: '#7265e6'}}>
+                  {user.ali}
+                </Avatar>
+              </>
+            }
           >
             <MenuItemGroup title={user.userName || ''}>
               <Menu.Item key="logout">

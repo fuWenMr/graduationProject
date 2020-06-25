@@ -6,11 +6,21 @@ export const Wrapper = styled.div`
     border-radius: 8px;
     border: 1px solid rgb(225, 225, 225);
     li {
+      display: flex;
+      flex-wrap: nowrap;
       border-bottom: 1px solid rgb(225, 225, 225);
       min-height: 50px;
       font-size: 14px;
       padding: 15px 10px 15px 10px;
 
+      .error_msg {
+        flex-grow: 1;
+      }
+      .last_time {
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 150px;
+      }
       .error_type, .miss_url {
         cursor: pointer;
         color: #1890ff;
@@ -33,7 +43,7 @@ export const Wrapper = styled.div`
       }
 
       .last_time {
-        float: right;
+        /* float: right; */
         margin-top: 2px;
         font-size: 12px;
         color: darkgray;

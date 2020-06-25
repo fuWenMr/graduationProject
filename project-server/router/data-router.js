@@ -20,6 +20,7 @@ routers = routers
   .get('/getApiErrorLog', dataController.getApiErrorLog)
   .get('/getApiData', dataController.getApiData)
   .get('/getApiSpeedPrice', dataController.getApiSpeedPrice)
+  .get('/getJ', dataController.getJ)
 ;
 
 module.exports = routers;

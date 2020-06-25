@@ -16,7 +16,7 @@ export default function getScript(baseConfigJSON, specialConfig, id) {
         `!function(a,b,c,d,e){`,
         `a[c]||(a[c]={});a[c].config={base:'${baseConfigJSON}',`,
         `id:'${id || '--------------'}',alias:'${alias}',ratio:${ratio},probelUrl:b,imgUrl:e};`,
-        `with(document)write('<script src="'+b+'"><\\/script>');`,
+        `with(document)write('<script src="'+b+'" crossorigin><\\/script>');`,
         `a[d]=a[c], (d!==c)&&delete a[c];`,
         `}(window,'${probelUrl}','__fw','__fw','${imgUrl}')`,
         `</script>`,

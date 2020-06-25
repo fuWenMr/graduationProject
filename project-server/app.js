@@ -21,7 +21,12 @@ const app = new Koa();
 
 app.keys = ["some secret hurr"]; //cookie签名
 
-app.use(static(__dirname + "/" + staticPath));
+app.use(static(__dirname + "/" + staticPath, {
+  gzip: true,
+  setHeaders: (res) => {
+    res.setHeader('cache-control', 'public, max-age=0');
+  }
+}));
 
 app.use(session(config.sessionConfig, app));
 app.use(koaBody());
@@ -30,8 +35,9 @@ app.use(response);
 app.use(routers.routes());
 app.use(routers.allowedMethods());
 // 开启监听端口
-app.listen(8080);
+var port = 8080;
+app.listen(port);
 
-log.info("开始监听8080端口");
-log.info("localhost:8080/#/login");
-log.info("localhost.charlesproxy.com:8080/#/login");
+log.info(`开始监听${port}端口`);
+log.info(`localhost:${port}/#/login`);
+log.info(`localhost.charlesproxy.com:${port}/#/login`);

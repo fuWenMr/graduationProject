@@ -28,7 +28,6 @@ class ErrorDetail extends React.Component<IProps> {
     this.setState({ loading: true })
     getErrorDetial(appId).then((res: any) => {
       if (res.resType === 0) {
-        console.log('看看shuju', res.data)
         this.setState({
           show: true,
           data: res.data,

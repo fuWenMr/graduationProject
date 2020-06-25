@@ -62,6 +62,8 @@ class JoinTable extends React.Component<IProps> {
     this.setState({ loading: true});
     outApp(appId).then((res: any) => {
       if (res.resType === 0) {
+        localStorage.clear();
+        sessionStorage.clear();
         window.location.reload();
         return ;
       }
@@ -74,7 +76,6 @@ class JoinTable extends React.Component<IProps> {
   render() {
     const { appList } = this.props;
     const { loading } = this.state;
-    console.log('join', appList);
     return <Table loading={loading} columns={this.columns} dataSource={appList} pagination={false} />
   }
 }

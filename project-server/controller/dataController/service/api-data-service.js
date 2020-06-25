@@ -168,11 +168,10 @@ async function getApiSpeedPrice(
 
   // 筛选出该key在不同事件段的count
   const sql_apiCount = getSql_apiCount(appId, apiUrl, dbDateTicks);
-  console.log("///////////////////////////////////////////");
-  console.log(sql_apiCount);
+
   const apiCountRes = await sqlQuery(sql_apiCount);
 
-  console.log(apiCountRes);
+  
   let countMap = {};
   if (apiCountRes.every((t) => !t.num)) {
     return { res: [], ticks: [] };
@@ -188,11 +187,9 @@ async function getApiSpeedPrice(
     resDateTicks,
     countMap
   );
-  console.log("++++++++++++++++++++++++++++++++++++++++++++");
-  console.log(sql);
+
   const res = await sqlQuery(sql);
 
-  console.log(res);
   return { data: res, ticks: resDateTicks };
 }
 

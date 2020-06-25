@@ -4,6 +4,14 @@ import { host } from './config';
 
 import { clone } from '~/utils';
 
+function emptyAajx (time = 400 ,res = { resType: 0 }) {
+  return new Promise((reslove: any) => {
+    setTimeout(() => {
+      reslove(res);
+    }, time);
+  });
+}
+
 function ajax (method: Function ,url: string , data: any ,errMsg = '网络或服务器异常，请重试') {
   return new Promise((re, rj) => {
     const params = new URLSearchParams();
@@ -25,29 +33,18 @@ function ajax (method: Function ,url: string , data: any ,errMsg = '网络或服
   });
 }
 
+export const getWarning = (appId: string) => {
+  return new Promise((reslove: any) => {
+    setTimeout(() => {
+      reslove({
+        resType: 0,
+      })
+    }, 400);
+  });
+}
 
 export const getJ = (appId: string) => {
-  return new Promise((reslove: any) => {
-    setTimeout(reslove({
-      resType: 0,
-      data: {
-        renderTime: 463,
-        renderTimeChange: 0,
-        jsErrorNum: 46,
-        jsErrorNumChange: 10,
-        jsErrorRatio : 12,
-        jsErrorRatioChange: 20,
-        apiErrorNum: 16,
-        apiErrorNumChange : 0,
-        apiErrorRatio: 2,
-        apiErrorRatioChange: 0,
-        staticMissNum: 79,
-        staticMissNumChange: 77.8,
-        staticMissRatio: 100,    
-        staticMissRatioChange: 100,  
-      }
-    }), 200);
-  });
+  return ajax(axios.get, 'data/getJ', { appId });
 };
 
 
@@ -59,8 +56,8 @@ export const doLogout = () => {
   return ajax(axios.get, 'api/doLogout', {});
 };
 
-export const doRegister = (userName: string, password: string) => {
-  return ajax(axios.post, 'api/doRegister', { userName, password });
+export const doRegister = (userName: string, password: string, ali: string) => {
+  return ajax(axios.post, 'api/doRegister', { userName, password, ali });
 };
 
 export const doReset = (userName: string, newPassword: string, captcha: string) => {
@@ -103,7 +100,7 @@ export const deleteAppUsers = (appId: string, users: string[]) => {
   if ( users.length === 0 ) {
     return new Promise(()=>{});
   } 
-  return ajax(axios.post, 'api/deleteAppUsers', { appId, users });
+  return ajax(axios.post, 'api/deleteAppUsers', { appId, users: JSON.stringify(users) });
 };
 
 export const newBoss = (appId: string, user: string) => {
@@ -132,6 +129,18 @@ export const getMessage = () => {
 
 export const allowJoin = (appId: string, userName: string) => {
   return ajax(axios.post, 'api/allowJoin', { appId, userName});
+}
+
+export const getAlarm = (appId: string) => {
+  return ajax(axios.post, 'api/getAlarm', { appId });
+}
+
+export const setAlarm = (appId: string, alarms: any[]) => {
+  return ajax(axios.post, 'api/setAlarm', { appId, alarms: JSON.stringify(alarms) });
+}
+
+export const makeAlarm = (alarmId: string, values: any) => {
+  return emptyAajx();
 }
 
 /**

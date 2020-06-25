@@ -3,11 +3,13 @@ import {
   Menu,
   Icon,
   Dropdown,
+  Popover,
 } from 'antd';
 import { connectAlita } from 'redux-alita';
-import { STATE_APP_LIST, STATE_CURRENT_APP } from '~/redux/reduxStateName';
+import { STATE_APP_LIST, STATE_CURRENT_APP, STATE_USER } from '~/redux/reduxStateName';
 import { getUserApps } from '~/ajax';
 import { setStateData, clone } from '~/utils';
+import TimeChoose from './compontents/timeChoose';
 import { Wrapper } from './styled';
 
 class ContentBar extends React.Component<any> {
@@ -20,7 +22,7 @@ class ContentBar extends React.Component<any> {
 
     const getCurrentApp = (appList: any[]) => {
       let preCurrentApp: any;
-      console.log('让我看看当前的app', currentApp );
+      // console.log('让我看看当前的app', currentApp );
       if ( currentApp && currentApp.data) {
         preCurrentApp = appList.find((app: any) => {
           return app.id === currentApp.data.id;
@@ -39,7 +41,11 @@ class ContentBar extends React.Component<any> {
         if (res.resType === 0) {
           setStateData(setAlitaState, STATE_APP_LIST, res.apps);
           // 确定当前应用
-          setStateData(setAlitaState, STATE_CURRENT_APP, getCurrentApp(res.apps), true); 
+          setStateData(setAlitaState, STATE_CURRENT_APP, getCurrentApp(res.apps), true);
+          const owner = getCurrentApp(res.apps).owner;
+          (window as any).isMine = (owner === this.props[STATE_USER].data.userName);
+          console.log('是我的吗',(window as any).isMine)
+          this.props.update();
         }
       });
  
@@ -65,7 +71,7 @@ class ContentBar extends React.Component<any> {
       appList,
       currentApp,
     } = this.props;
-    console.log('看看applist', appList, currentApp);
+    // console.log('看看applist', appList, currentApp);
     const currentId = currentApp ? currentApp.data.id : '0';
     const menu = (appList && appList.data.length > 1) 
       ? <Menu className="reset reset_antd" onClick={this.handleChangeApp}>
@@ -91,8 +97,19 @@ class ContentBar extends React.Component<any> {
           </span>
         </Dropdown>
       </div>
+      <div className="right">
+          <div className="data_time">
+            <span>数据来源: </span>
+            <Popover
+              placement="bottom"
+              content = {<TimeChoose />}
+            >
+              <span className="current_time">12小时内</span>
+            </Popover>
+          </div>
+        </div>
     </Wrapper>
   }
 }
 
-export default connectAlita([STATE_CURRENT_APP, STATE_APP_LIST])(ContentBar);
+export default connectAlita([STATE_CURRENT_APP, STATE_APP_LIST, STATE_USER])(ContentBar);

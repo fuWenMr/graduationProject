@@ -96,7 +96,7 @@ class PvEchartsViews extends React.Component<IProps> {
                 总PV：<span> {pvSumCount}</span>
               </p>
               <p>
-                总UV：<span> {2}</span>
+                总UV：<span> {1}</span>
               </p>
             </div>
             <ul className="page_list">

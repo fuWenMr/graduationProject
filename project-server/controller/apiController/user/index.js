@@ -15,7 +15,10 @@ async function doLogin(ctx) {
     ctx.success({ resType: 1, msg: "该账号还未激活" });
   } else {
     ctx.session.user = userName;
-    ctx.success({ resType: 0, userName });
+    ctx.success({ resType: 0, user: {
+      userName,
+      ali: user.ali,
+    } });
   }
 }
 
@@ -26,10 +29,12 @@ async function doLogout(ctx) {
 
 async function doRegister(ctx) {
   const data = ctx.request.body;
-  const { userName, password } = data;
+  const { userName, password, ali } = data;
+  console.log('55555555555555555555555');
+  console.log(userName, password, ali);
 
   // 先验证是否注册
-  const user = await dao.hasUserRegisted(userName, password);
+  const user = await dao.hasUserRegisted(userName, password, ali);
 
   if (user) {
     ctx.success({ type: 1, msg: "该邮箱已被注册" });
@@ -37,7 +42,7 @@ async function doRegister(ctx) {
   }
 
   // 未注册的话去发送邮件
-  const { activeKey } = await dao.registerNewUser(userName, password);
+  const { activeKey } = await dao.registerNewUser(userName, password, ali);
   await sendEmail(userName, {
     subject: `${appConfig.name}账号激活`,
     html: `<html><body>
@@ -69,7 +74,6 @@ async function getResetCaptcha(ctx) {
   const user = await dao.hasUserRegisted(userName);
 
   if (!user) {
-    console.log("验证的邮箱还未注册");
     ctx.success({ resType: 1, errMsg: "该邮箱还未注册" });
   } else {
     // 发送验证码并存到session中
@@ -80,7 +84,6 @@ async function getResetCaptcha(ctx) {
       text: `你的重置验证码为${resetCaptcha}/n 请尽快修改密码防止验证码失效`,
     });
     ctx.session.resetCaptcha = resetCaptcha;
-    console.log("能看到验证码吗", ctx.session.resetCaptcha);
     ctx.success({ resType: 0 });
   }
 }

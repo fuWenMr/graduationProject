@@ -39,7 +39,9 @@ class EditModal extends React.Component<IProps> {
       this.setState({ confirmLoading: true });
       editApp(app.id, values.appInfo).then((res: any) => {
         if (res.resType === 0) {
-          message.success('修改成功', 0.5, () => {window.location.reload()});
+          message.success('修改成功', 0.5, () => {
+            window.location.reload();
+          });
           return ;
         }
         message.error('操作失败');
