@@ -46,11 +46,9 @@ umbrella.config('REACT-ADMIN');
 // }
 
 ReactDOM.render(
-    // <AppContainer>
     <AlitaProvider>
-        <Page />
+      <Page />
     </AlitaProvider>,
-    // </AppContainer>
     document.getElementById('root')
 );
 // If you want your app to work offline and load faster, you can change

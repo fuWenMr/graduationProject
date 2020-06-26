@@ -10,7 +10,7 @@ import SiderCustom from './components/SiderCustom';
 import HeaderCustom from './components/headerCustom';
 
 import ContentBar from './components/contentBar';
-import { ThemePicker } from './components/widget';
+// import { ThemePicker } from './components/widget';
 
 import {
   STATE_USER,
@@ -135,7 +135,7 @@ class App extends Component<AppProps> {
           {!responsive.data.isMobile && (
             <SiderCustom collapsed={this.state.collapsed} />
           )}
-          <ThemePicker />
+          {/* <ThemePicker /> */}
           <Layout style={{minWidth: '1000px' }}>
             <div style={{position: "sticky", top: '0px', zIndex: 10}}>
               <HeaderCustom

@@ -22,7 +22,7 @@ function getSpeedAvgSql(appId, DateStart, timeStep, steps) {
   }
   const sql_union_str_ = sql_union_strs.join(" UNION ALL ");
   const sql = `
-  with temp as (SELECT  speedKey, speed, createAt 
+  with temp as (SELECT speedKey, speed, createAt 
 		FROM speed_report 
     WHERE appId='${appId}' AND createAt<'${times[0]}' AND createAt>='${times[steps]}' )
   SELECT * FROM (
