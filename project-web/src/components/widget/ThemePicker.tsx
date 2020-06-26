@@ -19,7 +19,7 @@ class ThemePicker extends Component {
         localStorage.setItem('@primary-color', color.hex);
 
         (window as any).less.modifyVars({
-            '@primary-color': color.hex,
+          '@primary-color': color.hex,
         });
     };
     render() {
